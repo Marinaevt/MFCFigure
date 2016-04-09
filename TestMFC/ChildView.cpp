@@ -1,5 +1,5 @@
-
-// ChildView.cpp : реализация класса CChildView
+п»ї
+// ChildView.cpp : СЂРµР°Р»РёР·Р°С†РёСЏ РєР»Р°СЃСЃР° CChildView
 //
 
 #include "stdafx.h"
@@ -43,7 +43,7 @@ END_MESSAGE_MAP()
 
 
 
-// обработчики сообщений CChildView
+// РѕР±СЂР°Р±РѕС‚С‡РёРєРё СЃРѕРѕР±С‰РµРЅРёР№ CChildView
 
 BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs) 
 {
@@ -60,7 +60,7 @@ BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs)
 
 void CChildView::OnPaint() 
 {
-	CPaintDC dc(this); // контекст устройства для рисования
+	CPaintDC dc(this); // РєРѕРЅС‚РµРєСЃС‚ СѓСЃС‚СЂРѕР№СЃС‚РІР° РґР»СЏ СЂРёСЃРѕРІР°РЅРёСЏ
 	CDC dcMem;
 	CBitmap bmpDC;
 	CRect rcClient;
@@ -117,11 +117,15 @@ void CChildView::OnPaint()
 	dc.LineTo(c.m_dx - A / 2 + A, c.m_dy - A / 2);
 	dc.LineTo(c.m_dx - A / 2 + A2, c.m_dy - A / 2);
 	*/
-	// Не вызывайте CWnd::OnPaint() для сообщений рисования
+	// РќРµ РІС‹Р·С‹РІР°Р№С‚Рµ CWnd::OnPaint() РґР»СЏ СЃРѕРѕР±С‰РµРЅРёР№ СЂРёСЃРѕРІР°РЅРёСЏ
 }
 int CChildView::FindObject(CPoint point) {
 	double tempx, tempy;
 	for (int i = m_figure.size() - 1; i >= 0; i--) {
+		//double x_mouse = point.x*cos(m_figure[i]->GetAngle()) + point.y*sin(m_figure[i]->GetAngle()); //ГІГ ГЄГЁГҐ Г§Г­Г ГЄГЁ, ГЇГ®ГІГ®Г¬Гі Г·ГІГ® ГЇГ®ГўГ®Г°Г®ГІ ГЇГ® Г·Г Г±Г®ГўГ®Г© Г±ГІГ°ГҐГ«ГЄГҐ  
+		//double y_mouse = -point.x*sin(m_figure[i]->GetAngle()) + point.y*cos(m_figure[i]->GetAngle());
+		//point.x = x_mouse;
+		//point.y = y_mouse;
 		if (m_figure[i]->IsInside(point.x, point.y)) {
 			return i;
 		}
@@ -132,7 +136,7 @@ int CChildView::FindObject(CPoint point) {
 
 void CChildView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
+	// TODO: РґРѕР±Р°РІСЊС‚Рµ СЃРІРѕР№ РєРѕРґ РѕР±СЂР°Р±РѕС‚С‡РёРєР° СЃРѕРѕР±С‰РµРЅРёР№ РёР»Рё РІС‹Р·РѕРІ СЃС‚Р°РЅРґР°СЂС‚РЅРѕРіРѕ
 
 	CWnd::OnChar(nChar, nRepCnt, nFlags);
 	if (nChar == 0x0D) {
@@ -143,7 +147,11 @@ void CChildView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CChildView::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
+	// TODO: РґРѕР±Р°РІСЊС‚Рµ СЃРІРѕР№ РєРѕРґ РѕР±СЂР°Р±РѕС‚С‡РёРєР° СЃРѕРѕР±С‰РµРЅРёР№ РёР»Рё РІС‹Р·РѕРІ СЃС‚Р°РЅРґР°СЂС‚РЅРѕРіРѕ
+	//double x_mouse = point.x*cos(m_figure[m_nCatched]->GetAngle()) + point.y*sin(m_figure[m_nCatched]->GetAngle()); //ГІГ ГЄГЁГҐ Г§Г­Г ГЄГЁ, ГЇГ®ГІГ®Г¬Гі Г·ГІГ® ГЇГ®ГўГ®Г°Г®ГІ ГЇГ® Г·Г Г±Г®ГўГ®Г© Г±ГІГ°ГҐГ«ГЄГҐ  
+	//double y_mouse = -point.x*sin(m_figure[m_nCatched]->GetAngle()) + point.y*cos(m_figure[m_nCatched]->GetAngle());
+	//point.x = x_mouse;
+	//point.y = y_mouse;
 	m_nCatched = -1;
 	ReleaseCapture();
 	CWnd::OnLButtonUp(nFlags, point);
@@ -155,7 +163,8 @@ void CChildView::OnLButtonUp(UINT nFlags, CPoint point)
 
 void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
+	// TODO: РґРѕР±Р°РІСЊС‚Рµ СЃРІРѕР№ РєРѕРґ РѕР±СЂР°Р±РѕС‚С‡РёРєР° СЃРѕРѕР±С‰РµРЅРёР№ РёР»Рё РІС‹Р·РѕРІ СЃС‚Р°РЅРґР°СЂС‚РЅРѕРіРѕ
+
 	m_nCatched = FindObject(point);
 	if (m_nCatched >= 0) {
 		m_MousePos = point;
@@ -174,14 +183,18 @@ void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
 //{
 //	CWnd::OnMove(x, y);
 //
-//	// TODO: добавьте свой код обработчика сообщений
+//	// TODO: РґРѕР±Р°РІСЊС‚Рµ СЃРІРѕР№ РєРѕРґ РѕР±СЂР°Р±РѕС‚С‡РёРєР° СЃРѕРѕР±С‰РµРЅРёР№
 //}
 
 
 void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 {
-	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
+	// TODO: РґРѕР±Р°РІСЊС‚Рµ СЃРІРѕР№ РєРѕРґ РѕР±СЂР°Р±РѕС‚С‡РёРєР° СЃРѕРѕР±С‰РµРЅРёР№ РёР»Рё РІС‹Р·РѕРІ СЃС‚Р°РЅРґР°СЂС‚РЅРѕРіРѕ
 	if (m_nCatched >= 0) {
+		//double x_mouse = point.x*cos(m_figure[m_nCatched]->GetAngle()) + point.y*sin(m_figure[m_nCatched]->GetAngle()); //ГІГ ГЄГЁГҐ Г§Г­Г ГЄГЁ, ГЇГ®ГІГ®Г¬Гі Г·ГІГ® ГЇГ®ГўГ®Г°Г®ГІ ГЇГ® Г·Г Г±Г®ГўГ®Г© Г±ГІГ°ГҐГ«ГЄГҐ  
+		//double y_mouse = -point.x*sin(m_figure[m_nCatched]->GetAngle()) + point.y*cos(m_figure[m_nCatched]->GetAngle());
+		//point.x = x_mouse;
+		//point.y = y_mouse;
 		CRect rect;
 		GetClientRect(&rect);
 		point.x = min(rect.right, max(rect.left, point.x));
@@ -197,7 +210,7 @@ void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 void CChildView::AddNewFig() {
 	CRect rect;
 	GetClientRect(&rect);
-	m_figure.push_back(new CMy2DObject8A(300, 80, 100, 120, 45, 500, 500));
+	m_figure.push_back(new CMy2DObject8A(300, 80, 100, 120, 15, 500, 500));
 	Invalidate();
 	//UpdateWindow();
 }
@@ -206,13 +219,13 @@ void CChildView::AddNewFig() {
 void CChildView::OnSize(UINT nType, int cx, int cy)
 {
 	CWnd::OnSize(nType, cx, cy);
-	// TODO: добавьте свой код обработчика сообщений
+	// TODO: РґРѕР±Р°РІСЊС‚Рµ СЃРІРѕР№ РєРѕРґ РѕР±СЂР°Р±РѕС‚С‡РёРєР° СЃРѕРѕР±С‰РµРЅРёР№
 }
 
 
 BOOL CChildView::OnEraseBkgnd(CDC* pDC)
 {
-	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
+	// TODO: РґРѕР±Р°РІСЊС‚Рµ СЃРІРѕР№ РєРѕРґ РѕР±СЂР°Р±РѕС‚С‡РёРєР° СЃРѕРѕР±С‰РµРЅРёР№ РёР»Рё РІС‹Р·РѕРІ СЃС‚Р°РЅРґР°СЂС‚РЅРѕРіРѕ
 
 	//return CWnd::OnEraseBkgnd(pDC);
 	return FALSE;

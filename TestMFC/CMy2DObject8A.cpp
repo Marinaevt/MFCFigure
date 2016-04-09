@@ -169,11 +169,11 @@ const bool CMy2DObject8A :: IsInside(const CMy2DPoint &point){
 	return 0;
 }
 const bool CMy2DObject8A::IsInside(const double x, const double y) {
-	CMy2DPoint a(x - NCx(m_center.m_dx, m_center.m_dy, degtorad(m_dAngle)), y - NCy(m_center.m_dx, m_center.m_dy, degtorad(m_dAngle)));
+	//CMy2DPoint a(x - NCx(m_center.m_dx, m_center.m_dy, degtorad(m_dAngle)), y - NCy(m_center.m_dx, m_center.m_dy, degtorad(m_dAngle)));
 	//CMy2DPoint a(-m_center.m_dx + NCx(x, y, degtorad(m_dAngle)), -m_center.m_dy + NCy(x, y, degtorad(m_dAngle)));
-	//CMy2DPoint a(x - m_center.m_dx, y - m_center.m_dy);
-	a.m_dx = NCx(a.m_dx, a.m_dy, degtorad(-m_dAngle));//a.m_dx*cos(m_dAngle) + a.m_dy*sin(m_dAngle);
-	a.m_dy = NCy(a.m_dx, a.m_dy, degtorad(-m_dAngle));//-a.m_dx*sin(m_dAngle) + a.m_dy*cos(m_dAngle);
+	CMy2DPoint a(x - m_center.m_dx, y - m_center.m_dy);
+	a.m_dx = NCx(a.m_dx, a.m_dy, degtorad(m_dAngle));//a.m_dx*cos(m_dAngle) + a.m_dy*sin(m_dAngle);
+	a.m_dy = NCy(a.m_dx, a.m_dy, degtorad(m_dAngle));//-a.m_dx*sin(m_dAngle) + a.m_dy*cos(m_dAngle);
 	if (abs(a.m_dx) <= m_dA / 2 && abs(a.m_dy) <= m_dA / 2) {
 		if (pow(a.m_dx - m_dA/2, 2) + a.m_dy*a.m_dy >= m_dA1*m_dA1) {
 			if (a.m_dx >= (-m_dA/2 + m_dA3) || a.m_dy<=(m_dA/2 - m_dA3)) {
