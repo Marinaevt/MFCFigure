@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "head.h"
-
+#include "ChildView.h"
+#include <wingdi.h>
 
 const double CMy2DObject8A ::  GetA(){
 	return m_dA;
@@ -172,16 +173,16 @@ const bool CMy2DObject8A::IsInside(const double x, const double y) {
 	//CMy2DPoint a(x - NCx(m_center.m_dx, m_center.m_dy, degtorad(m_dAngle)), y - NCy(m_center.m_dx, m_center.m_dy, degtorad(m_dAngle)));
 	//CMy2DPoint a(-m_center.m_dx + NCx(x, y, degtorad(m_dAngle)), -m_center.m_dy + NCy(x, y, degtorad(m_dAngle)));
 	CMy2DPoint a(x - m_center.m_dx, y - m_center.m_dy);
-	a.m_dx = NCx(a.m_dx, a.m_dy, degtorad(m_dAngle));//a.m_dx*cos(m_dAngle) + a.m_dy*sin(m_dAngle);
-	a.m_dy = NCy(a.m_dx, a.m_dy, degtorad(m_dAngle));//-a.m_dx*sin(m_dAngle) + a.m_dy*cos(m_dAngle);
+	a.m_dx = NCx(a.m_dx, a.m_dy, degtorad(-m_dAngle));//a.m_dx*cos(m_dAngle) + a.m_dy*sin(m_dAngle);
+	a.m_dy = NCy(a.m_dx, a.m_dy, degtorad(-m_dAngle));//-a.m_dx*sin(m_dAngle) + a.m_dy*cos(m_dAngle);
 	if (abs(a.m_dx) <= m_dA / 2 && abs(a.m_dy) <= m_dA / 2) {
-		if (pow(a.m_dx - m_dA/2, 2) + a.m_dy*a.m_dy >= m_dA1*m_dA1) {
-			if (a.m_dx >= (-m_dA/2 + m_dA3) || a.m_dy<=(m_dA/2 - m_dA3)) {
-				if (pow(a.m_dx + (m_dA/2 - m_dA2), 2) + pow(a.m_dy + (m_dA/2 - m_dA2), 2) <= m_dA2*m_dA2 || a.m_dy >= (-m_dA/2 +m_dA2) || a.m_dx >= (-m_dA / 2 + m_dA2)) {
+//		if (pow(a.m_dx - m_dA/2, 2) + a.m_dy*a.m_dy >= m_dA1*m_dA1) {
+//			if (a.m_dx >= (-m_dA/2 + m_dA3) || a.m_dy<=(m_dA/2 - m_dA3)) {
+//				if (pow(a.m_dx + (m_dA/2 - m_dA2), 2) + pow(a.m_dy + (m_dA/2 - m_dA2), 2) <= m_dA2*m_dA2 || a.m_dy >= (-m_dA/2 +m_dA2) || a.m_dx >= (-m_dA / 2 + m_dA2)) {
 					return 1;
-				}
-			}
-		}
+//				}
+//			}
+//		}
 	}
 	//cout << "point isn't inside" << endl;
 	return 0;
@@ -207,51 +208,60 @@ istream &operator>>(istream  &input, CMy2DObject8A& D) {
 }
 
 void CMy2DObject8A::Draw(CDC &dc) {
-	CMy2DPoint c = this->m_center;
+	CMy2DPoint c = this->m_center, c1(NCx(c.m_dx, c.m_dy, degtorad(m_dAngle)), NCy(c.m_dx, c.m_dy, degtorad(m_dAngle)));
 	double A = this->m_dA, A1 = this->m_dA1, A2 = this->m_dA2, A3 = this->m_dA3, angle = this->m_dAngle;
 	double tempx, tempy;
+	c1 = c - c1;
 	tempx = NCx(A2 + c.m_dx - A / 2, c.m_dy - A / 2, degtorad(m_dAngle));
 	tempy = NCy(A2 + c.m_dx - A / 2, c.m_dy - A / 2, degtorad(m_dAngle));
-	dc.MoveTo(tempx, tempy);
+	dc.MoveTo(tempx + c1.m_dx, tempy + c1.m_dy);
 	tempx = NCx(A2 + c.m_dx - A / 2, A2 + c.m_dy - A / 2, degtorad(m_dAngle));
 	tempy = NCy(A2 + c.m_dx - A / 2, A2 + c.m_dy - A / 2, degtorad(m_dAngle));
-	dc.AngleArc(tempx, tempy, A2, 90 + m_dAngle, 90);
+	dc.AngleArc(tempx + c1.m_dx, tempy + c1.m_dy, A2, 90 + m_dAngle, 90);
 	tempx = NCx(c.m_dx - A / 2, c.m_dy - A / 2 + A2 + (A - A2 - A3), degtorad(m_dAngle));
 	tempy = NCy(c.m_dx - A / 2, c.m_dy - A / 2 + A2 + (A - A2 - A3), degtorad(m_dAngle));
-	dc.LineTo(tempx, tempy);
+	dc.LineTo(tempx + c1.m_dx, tempy + c1.m_dy);
 	tempx = NCx(c.m_dx - A / 2 + A3, c.m_dy - A / 2 + A - A3, degtorad(m_dAngle));
 	tempy = NCy(c.m_dx - A / 2 + A3, c.m_dy - A / 2 + A - A3, degtorad(m_dAngle));
-	dc.LineTo(tempx, tempy);
+	dc.LineTo(tempx + c1.m_dx, tempy + c1.m_dy);
 	tempx = NCx(A3 + c.m_dx - A / 2, c.m_dy - A / 2 + A, degtorad(m_dAngle));
 	tempy = NCy(A3 + c.m_dx - A / 2, c.m_dy - A / 2 + A, degtorad(m_dAngle));
-	dc.LineTo(tempx, tempy);
+	dc.LineTo(tempx + c1.m_dx, tempy + c1.m_dy);
 	tempx = NCx(A + c.m_dx - A / 2, A + c.m_dy - A / 2, degtorad(m_dAngle));
 	tempy = NCy(A + c.m_dx - A / 2, A + c.m_dy - A / 2, degtorad(m_dAngle));
-	dc.LineTo(tempx, tempy);
+	dc.LineTo(tempx + c1.m_dx, tempy + c1.m_dy);
 	tempx = NCx(A + c.m_dx - A / 2, c.m_dy - A / 2 + 2 * A1 + A / 2 - A1, degtorad(m_dAngle));
 	tempy = NCy(A + c.m_dx - A / 2, c.m_dy - A / 2 + 2 * A1 + A / 2 - A1, degtorad(m_dAngle));
-	dc.LineTo(tempx, tempy);
+	dc.LineTo(tempx + c1.m_dx, tempy + c1.m_dy);
 	tempx = NCx(c.m_dx - A / 2 + A, c.m_dy - A / 2 + A / 2, degtorad(m_dAngle));
 	tempy = NCy(c.m_dx - A / 2 + A, c.m_dy - A / 2 + A / 2, degtorad(m_dAngle));
-	dc.AngleArc(tempx, tempy, A1, -90 + m_dAngle, -180);
+	dc.AngleArc(tempx + c1.m_dx, tempy + c1.m_dy, A1, -90 + m_dAngle, -180);
 	tempx = NCx(c.m_dx - A / 2 + A, c.m_dy - A / 2, degtorad(m_dAngle));
 	tempy = NCy(c.m_dx - A / 2 + A, c.m_dy - A / 2, degtorad(m_dAngle));
-	dc.LineTo(tempx, tempy);
+	dc.LineTo(tempx + c1.m_dx, tempy + c1.m_dy);
 	tempx = NCx(c.m_dx - A / 2 + A2, c.m_dy - A / 2, degtorad(m_dAngle));
 	tempy = NCy(c.m_dx - A / 2 + A2, c.m_dy - A / 2, degtorad(m_dAngle));
-	dc.LineTo(tempx, tempy);
+	dc.LineTo(tempx + c1.m_dx, tempy + c1.m_dy);
 
 
-	for (int i = -250; i < A+100; i += 5) {
-		for (int j = -250; j < A+100; j += 5) {
-			if (IsInside(c.m_dx + i, c.m_dy + j)) {
-				tempx = NCx(c.m_dx + i, c.m_dy + j, degtorad(m_dAngle));
-				tempy = NCy(c.m_dx + i, c.m_dy + j, degtorad(m_dAngle));
-				dc.SetPixel(c.m_dx + i, c.m_dy + j, RGB(255, 0, 0));
+	for (int i = 0; i < 5000; i += 5) {
+		for (int j = 0; j < 5000; j += 5) {
+			if (IsInside(i, j)){
+				dc.SetPixel(i, j, RGB(255, 0, 0));
 			}
 		}
 	}
-
+/*
+	for (int i = -300; i < A+200; i += 5) {
+		for (int j = -300; j < A+200; j += 5) {
+			if (IsInside(c.m_dx + i, c.m_dy + j)) {
+				tempx = NCx(c.m_dx + i, c.m_dy + j, degtorad(m_dAngle));
+				tempy = NCy(c.m_dx + i, c.m_dy + j, degtorad(m_dAngle));
+				dc.SetPixel(tempx, tempy, RGB(255, 0, 0));
+			}
+		}
+	}
+	*/
 
 	/*
 	dc.MoveTo(A2 + c.m_dx - A / 2, c.m_dy - A / 2);

@@ -122,10 +122,8 @@ void CChildView::OnPaint()
 int CChildView::FindObject(CPoint point) {
 	double tempx, tempy;
 	for (int i = m_figure.size() - 1; i >= 0; i--) {
-		//double x_mouse = point.x*cos(m_figure[i]->GetAngle()) + point.y*sin(m_figure[i]->GetAngle()); //òàêèå çíàêè, ïîòîìó ÷òî ïîâîðîò ïî ÷àñîâîé ñòðåëêå  
-		//double y_mouse = -point.x*sin(m_figure[i]->GetAngle()) + point.y*cos(m_figure[i]->GetAngle());
-		//point.x = x_mouse;
-		//point.y = y_mouse;
+		//point.x = NCx(point.x, point.y, m_figure[i]->GetAngle());
+		//point.y = NCy(point.x, point.y, m_figure[i]->GetAngle());
 		if (m_figure[i]->IsInside(point.x, point.y)) {
 			return i;
 		}
@@ -148,10 +146,8 @@ void CChildView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
 void CChildView::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
-	//double x_mouse = point.x*cos(m_figure[m_nCatched]->GetAngle()) + point.y*sin(m_figure[m_nCatched]->GetAngle()); //òàêèå çíàêè, ïîòîìó ÷òî ïîâîðîò ïî ÷àñîâîé ñòðåëêå  
-	//double y_mouse = -point.x*sin(m_figure[m_nCatched]->GetAngle()) + point.y*cos(m_figure[m_nCatched]->GetAngle());
-	//point.x = x_mouse;
-	//point.y = y_mouse;
+	//point.x = NCx(point.x, point.y, m_figure[m_nCatched]->GetAngle());
+	//point.y = NCy(point.x, point.y, m_figure[m_nCatched]->GetAngle());
 	m_nCatched = -1;
 	ReleaseCapture();
 	CWnd::OnLButtonUp(nFlags, point);
@@ -191,10 +187,8 @@ void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 {
 	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
 	if (m_nCatched >= 0) {
-		//double x_mouse = point.x*cos(m_figure[m_nCatched]->GetAngle()) + point.y*sin(m_figure[m_nCatched]->GetAngle()); //òàêèå çíàêè, ïîòîìó ÷òî ïîâîðîò ïî ÷àñîâîé ñòðåëêå  
-		//double y_mouse = -point.x*sin(m_figure[m_nCatched]->GetAngle()) + point.y*cos(m_figure[m_nCatched]->GetAngle());
-		//point.x = x_mouse;
-		//point.y = y_mouse;
+		//point.x = NCx(point.x, point.y, m_figure[m_nCatched]->GetAngle());
+		//point.y = NCy(point.x, point.y, m_figure[m_nCatched]->GetAngle());
 		CRect rect;
 		GetClientRect(&rect);
 		point.x = min(rect.right, max(rect.left, point.x));
@@ -210,7 +204,7 @@ void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 void CChildView::AddNewFig() {
 	CRect rect;
 	GetClientRect(&rect);
-	m_figure.push_back(new CMy2DObject8A(300, 80, 100, 120, 15, 500, 500));
+	m_figure.push_back(new CMy2DObject8A(150, 40, 20, 60, 60, 200, 340));
 	Invalidate();
 	//UpdateWindow();
 }
