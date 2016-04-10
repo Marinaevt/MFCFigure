@@ -172,17 +172,17 @@ const bool CMy2DObject8A :: IsInside(const CMy2DPoint &point){
 const bool CMy2DObject8A::IsInside(const double x, const double y) {
 	//CMy2DPoint a(x - NCx(m_center.m_dx, m_center.m_dy, degtorad(m_dAngle)), y - NCy(m_center.m_dx, m_center.m_dy, degtorad(m_dAngle)));
 	//CMy2DPoint a(-m_center.m_dx + NCx(x, y, degtorad(m_dAngle)), -m_center.m_dy + NCy(x, y, degtorad(m_dAngle)));
-	CMy2DPoint a(x - m_center.m_dx, y - m_center.m_dy);
-	a.m_dx = NCx(a.m_dx, a.m_dy, degtorad(-m_dAngle));//a.m_dx*cos(m_dAngle) + a.m_dy*sin(m_dAngle);
-	a.m_dy = NCy(a.m_dx, a.m_dy, degtorad(-m_dAngle));//-a.m_dx*sin(m_dAngle) + a.m_dy*cos(m_dAngle);
+	CMy2DPoint a(x - m_center.m_dx, y - m_center.m_dy), b(a);
+	a.m_dx = NCx(b.m_dx, b.m_dy, degtorad(-m_dAngle));//a.m_dx*cos(m_dAngle) + a.m_dy*sin(m_dAngle);
+	a.m_dy = NCy(b.m_dx, b.m_dy, degtorad(-m_dAngle));//-a.m_dx*sin(m_dAngle) + a.m_dy*cos(m_dAngle);
 	if (abs(a.m_dx) <= m_dA / 2 && abs(a.m_dy) <= m_dA / 2) {
-//		if (pow(a.m_dx - m_dA/2, 2) + a.m_dy*a.m_dy >= m_dA1*m_dA1) {
-//			if (a.m_dx >= (-m_dA/2 + m_dA3) || a.m_dy<=(m_dA/2 - m_dA3)) {
-//				if (pow(a.m_dx + (m_dA/2 - m_dA2), 2) + pow(a.m_dy + (m_dA/2 - m_dA2), 2) <= m_dA2*m_dA2 || a.m_dy >= (-m_dA/2 +m_dA2) || a.m_dx >= (-m_dA / 2 + m_dA2)) {
+		if (pow(a.m_dx - m_dA/2, 2) + a.m_dy*a.m_dy >= m_dA1*m_dA1) {
+			if (a.m_dx >= (-m_dA/2 + m_dA3) || a.m_dy<=(m_dA/2 - m_dA3)) {
+				if (pow(a.m_dx + (m_dA/2 - m_dA2), 2) + pow(a.m_dy + (m_dA/2 - m_dA2), 2) <= m_dA2*m_dA2 || a.m_dy >= (-m_dA/2 +m_dA2) || a.m_dx >= (-m_dA / 2 + m_dA2)) {
 					return 1;
-//				}
-//			}
-//		}
+				}
+			}
+		}
 	}
 	//cout << "point isn't inside" << endl;
 	return 0;
@@ -243,7 +243,7 @@ void CMy2DObject8A::Draw(CDC &dc) {
 	tempy = NCy(c.m_dx - A / 2 + A2, c.m_dy - A / 2, degtorad(m_dAngle));
 	dc.LineTo(tempx + c1.m_dx, tempy + c1.m_dy);
 
-
+	/*
 	for (int i = 0; i < 5000; i += 5) {
 		for (int j = 0; j < 5000; j += 5) {
 			if (IsInside(i, j)){
@@ -251,6 +251,7 @@ void CMy2DObject8A::Draw(CDC &dc) {
 			}
 		}
 	}
+	*/
 /*
 	for (int i = -300; i < A+200; i += 5) {
 		for (int j = -300; j < A+200; j += 5) {

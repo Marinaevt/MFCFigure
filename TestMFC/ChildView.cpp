@@ -204,7 +204,7 @@ void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 void CChildView::AddNewFig() {
 	CRect rect;
 	GetClientRect(&rect);
-	m_figure.push_back(new CMy2DObject8A(150, 40, 20, 60, 60, 200, 340));
+	m_figure.push_back(new CMy2DObject8A(150, 40, 20, 60, 180, 200, 340));
 	Invalidate();
 	//UpdateWindow();
 }
