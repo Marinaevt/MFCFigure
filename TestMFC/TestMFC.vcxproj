@@ -186,6 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChildView.h" />
+    <ClInclude Include="DlgProperties.h" />
     <ClInclude Include="head.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="ChildView.cpp" />
     <ClCompile Include="CMy2DObject8A.cpp" />
     <ClCompile Include="CMy2DPoint.cpp" />
+    <ClCompile Include="DlgProperties.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -219,4 +221,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="TestMFC.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

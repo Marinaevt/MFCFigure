@@ -133,6 +133,30 @@ BEGIN
     DEFPUSHBUTTON   "ОК",IDOK,113,41,50,14,WS_GROUP
 END
 
+IDD_DIALOG1 DIALOGEX 0, 0, 213, 121
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "ОК",IDOK,101,86,50,14
+    PUSHBUTTON      "Отмена",IDCANCEL,153,86,50,14
+    LTEXT           "A",IDC_STATIC,14,15,8,8
+    LTEXT           "A1",IDC_STATIC,14,38,10,8
+    LTEXT           "A2",IDC_STATIC,14,64,10,8
+    LTEXT           "A3",IDC_STATIC,14,90,10,8
+    LTEXT           "Center",IDC_STATIC,95,14,23,8
+    LTEXT           "Angle",IDC_STATIC,97,52,19,8
+    LTEXT           "X",IDC_STATIC,89,26,8,8
+    LTEXT           "Y",IDC_STATIC,128,26,8,8
+    EDITTEXT        IDC_EDIT1,14,24,59,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,14,49,59,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT3,14,74,59,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT4,14,99,59,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT5,97,24,24,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT6,134,24,24,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT7,97,62,69,12,ES_AUTOHSCROLL
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -188,6 +212,14 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 55
     END
+
+    IDD_DIALOG1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 206
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 114
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -209,6 +241,17 @@ END
 //
 
 IDR_TOOLBAR1            BITMAP                  "res\\toolbar1.bmp"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_DIALOG1 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
 
 
 /////////////////////////////////////////////////////////////////////////////

@@ -8,7 +8,7 @@
 #include <Windows.h>
 #include <time.h>
 #include <wingdi.h>
-
+#include "DlgProperties.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -39,6 +39,7 @@ BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_COMMAND(ID_ADD, AddNewFig)
 	ON_WM_SIZE()
 	ON_WM_ERASEBKGND()
+	ON_WM_LBUTTONDBLCLK()
 END_MESSAGE_MAP()
 
 
@@ -223,4 +224,16 @@ BOOL CChildView::OnEraseBkgnd(CDC* pDC)
 
 	//return CWnd::OnEraseBkgnd(pDC);
 	return FALSE;
+}
+
+
+void CChildView::OnLButtonDblClk(UINT nFlags, CPoint point)
+{
+	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
+	m_nCatched = FindObject(point);
+	if (m_nCatched >= 0) {
+		CDlgProperties Dlg;
+		Dlg.DoModal();
+	}
+	CWnd::OnLButtonDblClk(nFlags, point);
 }
