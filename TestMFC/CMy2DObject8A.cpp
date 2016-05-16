@@ -18,6 +18,12 @@ const double CMy2DObject8A ::  GetA3(){
 const double CMy2DObject8A ::  GetAngle(){
 	return m_dAngle;
 }
+double CMy2DObject8A::GetCenterX() {
+	return m_center.m_dx;
+}
+double CMy2DObject8A::GetCenterY() {
+	return m_center.m_dy;
+}
 const CMy2DPoint CMy2DObject8A ::  GetCenter(){
 	return m_center;
 }
@@ -212,6 +218,12 @@ void CMy2DObject8A::Draw(CDC &dc) {
 	double A = this->m_dA, A1 = this->m_dA1, A2 = this->m_dA2, A3 = this->m_dA3, angle = this->m_dAngle;
 	double tempx, tempy;
 	c1 = c - c1;
+	// Ручка для границы 
+	CPen pen(BS_SOLID, 0, RGB(r, g, b));
+	CPen *pPen = (&dc)->SelectObject(&pen);
+	// Кисть для заливки 
+	CBrush brush(RGB(r, g, b));
+	CBrush *pBrush = (&dc)->SelectObject(&brush);
 	tempx = NCx(A2 + c.m_dx - A / 2, c.m_dy - A / 2, degtorad(m_dAngle));
 	tempy = NCy(A2 + c.m_dx - A / 2, c.m_dy - A / 2, degtorad(m_dAngle));
 	dc.MoveTo(tempx + c1.m_dx, tempy + c1.m_dy);
@@ -243,6 +255,8 @@ void CMy2DObject8A::Draw(CDC &dc) {
 	tempy = NCy(c.m_dx - A / 2 + A2, c.m_dy - A / 2, degtorad(m_dAngle));
 	dc.LineTo(tempx + c1.m_dx, tempy + c1.m_dy);
 
+
+	ExtFloodFill(dc, m_center.m_dx, m_center.m_dy, RGB(r, g, b), FLOODFILLBORDER);
 	/*
 	for (int i = 0; i < 5000; i += 5) {
 		for (int j = 0; j < 5000; j += 5) {

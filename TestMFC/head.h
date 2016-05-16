@@ -4,6 +4,7 @@
 #include <fstream>
 #include <cmath>
 #include <iomanip>
+#include "Windows.h"
 
 using namespace std;
 class CMy2DPoint{
@@ -31,8 +32,9 @@ class CMy2DObject8A{
 	double m_dA, m_dA1, m_dA2, m_dA3, m_dAngle;
 	CMy2DPoint m_center;
 public:
-	CMy2DObject8A(): m_dA(0), m_dA1(0), m_dA2(0), m_dA3(0), m_dAngle(0), m_center(){}; //конструктор по умолчанию
-	CMy2DObject8A(const double A, const double A1, const double A2, const double A3, const double angle, const CMy2DPoint center): m_dAngle(angle), m_center(center) { //конструкторы с параметрами
+	char r, g, b;
+	CMy2DObject8A(): m_dA(0), m_dA1(0), m_dA2(0), m_dA3(0), m_dAngle(0), m_center(), r(0), g(0), b(0) {}; //конструктор по умолчанию
+	CMy2DObject8A(const double A, const double A1, const double A2, const double A3, const double angle, const CMy2DPoint center, char red, char green, char blue): m_dAngle(angle), m_center(center), r(red), g(green), b(blue) { //конструкторы с параметрами
 		if (SET(A, A1, A2, A3)) { //проверка на корректность введенных данных
 			m_dA = A;
 			m_dA1 = A1;
@@ -43,7 +45,7 @@ public:
 			cout << "I can't do that. Try another figure" << endl;
 		}
 	};
-	CMy2DObject8A(const double A, const double A1, const double A2, const double A3, const double angle, double x, double y): m_dAngle(angle), m_center(x, y) {
+	CMy2DObject8A(const double A, const double A1, const double A2, const double A3, const double angle, double x, double y, char red, char green, char blue): m_dAngle(angle), m_center(x, y), r(red), g(green), b(blue) {
 		if (!SET(A, A1, A2, A3)) {
 			cout << "I can't do that. Try another figure" << endl;
 		}
@@ -54,6 +56,8 @@ public:
 	const double GetA2();
 	const double GetA3();
 	const double GetAngle();
+	double GetCenterX();
+	double GetCenterY();
 	const CMy2DPoint GetCenter();
 
 	bool SET(const double A, const double A1, const double A2, const double A3); //общий Set для проверки корректности в конструкторе или вводе

@@ -44,7 +44,7 @@ BOOL CTestMFCApp::InitInstance()
 {
 	CWinApp::InitInstance();
 
-
+	srand(time(0));
 	EnableTaskbarInteraction(FALSE);
 
 	// Для использования элемента управления RichEdit требуется метод AfxInitRichEdit2()	

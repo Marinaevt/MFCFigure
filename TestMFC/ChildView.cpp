@@ -40,6 +40,7 @@ BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_SIZE()
 	ON_WM_ERASEBKGND()
 	ON_WM_LBUTTONDBLCLK()
+	ON_WM_CONTEXTMENU()
 END_MESSAGE_MAP()
 
 
@@ -121,7 +122,7 @@ void CChildView::OnPaint()
 	// Не вызывайте CWnd::OnPaint() для сообщений рисования
 }
 int CChildView::FindObject(CPoint point) {
-	double tempx, tempy;
+	//double tempx, tempy;
 	for (int i = m_figure.size() - 1; i >= 0; i--) {
 		//point.x = NCx(point.x, point.y, m_figure[i]->GetAngle());
 		//point.y = NCy(point.x, point.y, m_figure[i]->GetAngle());
@@ -204,8 +205,9 @@ void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 }
 void CChildView::AddNewFig() {
 	CRect rect;
-	GetClientRect(&rect);
-	m_figure.push_back(new CMy2DObject8A(150, 40, 20, 60, 180, 200, 340));
+	GetClientRect(&rect); 
+	m_figure.push_back(new CMy2DObject8A(150, 40, 20, 60, 180, 200, 340, rand() % 253 + 1, rand() % 253 + 1, rand() % 253 + 1));
+	
 	Invalidate();
 	//UpdateWindow();
 }
@@ -232,8 +234,29 @@ void CChildView::OnLButtonDblClk(UINT nFlags, CPoint point)
 	// TODO: добавьте свой код обработчика сообщений или вызов стандартного
 	m_nCatched = FindObject(point);
 	if (m_nCatched >= 0) {
-		CDlgProperties Dlg;
-		Dlg.DoModal();
+		//CDlgProperties Dlg;
+		//Dlg.DoModal();
+		CDlgProperties Dlg(m_figure[m_nCatched]->GetA(), m_figure[m_nCatched]->GetA1(), m_figure[m_nCatched]->GetA2(), m_figure[m_nCatched]->GetA3(),
+			m_figure[m_nCatched]->GetCenterX(), m_figure[m_nCatched]->GetCenterY(), m_figure[m_nCatched]->GetAngle());
+
+		if (Dlg.DoModal()) {
+			m_figure[m_nCatched]->SetA(Dlg.A);
+			m_figure[m_nCatched]->SetA1(Dlg.A1);
+			m_figure[m_nCatched]->SetA2(Dlg.A2);
+			m_figure[m_nCatched]->SetA3(Dlg.A3);
+			m_figure[m_nCatched]->SetAngle(Dlg.Angle);
+			m_figure[m_nCatched]->SetCenter(Dlg.C_X, Dlg.C_Y);
+			Invalidate();
+			m_nCatched = -1;
+			ReleaseCapture();
+
+		}
 	}
 	CWnd::OnLButtonDblClk(nFlags, point);
+}
+
+
+void CChildView::OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/)
+{
+	// TODO: добавьте свой код обработчика сообщений
 }
